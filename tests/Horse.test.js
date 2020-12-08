@@ -1,12 +1,12 @@
-const Horse = require('../modules/pieces/Horse');
+const Horse = require('../src/pieces/Horse');
 
 // 1º Testing class constructor
 test('Horse class constructor works properly', () => {
-    const TestHorse = new Horse('Horse', 'white', 30, false, 'H');
+    const TestHorse = new Horse('Horse', 'white', 30, true, 'H');
     expect(TestHorse.name).toBe('Horse');
     expect(TestHorse.color).toBe('white');
     expect(TestHorse.value).toBe(30);
-    expect(TestHorse.canJump).toBe(false);
+    expect(TestHorse.canJump).toBe(true);
     expect(TestHorse.char).toBe('H');
 });
 
