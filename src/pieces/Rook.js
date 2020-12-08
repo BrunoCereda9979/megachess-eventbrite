@@ -1,7 +1,7 @@
 const Piece = require("../Piece");
 
 /**
- *  This is the Bishop class, it inherits from the Piece class.
+ *  This is the Rook class, it inherits from the Piece class.
  */
 
 class Rook extends Piece {
