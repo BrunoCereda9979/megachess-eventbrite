@@ -1,3 +1,9 @@
+/**
+ *  @module Piece
+ *  This is the superclass from wich every piece class will inherit.
+ *  Every piece will be able to generate a list of posible moves.
+ *  Every piece will be able to check if a move is valid.
+ */
 
 class Piece {
     constructor (name, color, value, canJump, char) {
@@ -41,6 +47,13 @@ class Piece {
         return this.char;
     }
 
+   /**
+    *   @method generateListOfMoves Generate a list of posible moves given the <X, Y> location and color of the piece.
+    *   @param {Number} fromX X coordinate of the piece.
+    *   @param {Number} fromY Y coordinate of the piece.
+    *   @param {String} pieceColor The color of the piece.
+    *   @returns {Object} List of all the posible moves of the piece.
+    */
     generateListOfMoves (fromX, fromY, pieceColor) {
         let toRandomToX = 0; // Random X destination
         let toRandomToY = 0; // Random Y destination
@@ -69,6 +82,14 @@ class Piece {
         return listOfPosibleMoves;
     }
 
+   /**
+    *   @method canMove Check if a move is valid given the origin and destination coodinates.
+    *   @param {Number} fromX X coordinate of the piece.
+    *   @param {Number} fromY Y coordinate of the piece.
+    *   @param {Number} toX X coodinate of destination.
+    *   @param {Number} toY Y coodinate of destination.
+    *   @returns {Boolean} Flag indicating if the movement is correct or not.
+    */
     canMove (fromX, fromY, toX, toY) {
         let canMove = false;
         
