@@ -1,3 +1,9 @@
+/**
+ *  @module Spot
+ *  This class represents a spot inside of the chess board.
+ *  It provides methods to get and set a piece inside of it.
+ */
+
 class Spot {
     constructor (piece, char) {
         this.piece = piece;
@@ -5,6 +11,7 @@ class Spot {
         this.coordinates = [];
     }
 
+    // ------------- GETTERS & SETTERS ------------- //
     getPieceChar () {
         return this.pieceChar;
     }
@@ -25,6 +32,10 @@ class Spot {
         this.coordinates = [x, y];
     }
 
+   /**
+    *  @method isEmpty Checks if the spot is empty.
+    *  @returns {Boolean} Flag indicating if the spot is empty or not.
+    */
     isEmpty () {
         let empty = false;
 
