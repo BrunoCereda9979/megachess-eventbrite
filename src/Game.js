@@ -1,4 +1,5 @@
 const Board = require('./Board');
+const Player = require('./Player');
 
 /**
 *   @module Game 
@@ -16,6 +17,7 @@ class Game {
     constructor (gateway) {
         this.gateway = gateway;
         this.board = new Board();
+        this.player = new Player('BrunoCereda');
         this.gameOnCourse = false;
     }
 
@@ -60,6 +62,19 @@ class Game {
                 // Display Board
                 this.board.displayBoard(actualBoard);
                 
+                // Make move
+                let move = this.player.generateMove(actualBoard, data.actual_turn);
+
+                // Send move
+                this.sendResponse('move', {
+                    "board_id": data.board_id,
+                    "turn_token": data.turn_token,
+                    "from_row": move[0],
+                    "from_col": move[1],
+                    "to_row": move[2],
+                    "to_col": move[3]
+                });
+
                 break;
 
             case 'gameover':
