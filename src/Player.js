@@ -4,18 +4,17 @@ class Player {
     *   @module Player
     *   @author BrunoCereda
     * 
-    *   *** THIS CLASS IS THE BOT PLAYER, IT WILL GENERATE MOVES FOR THE PIECES ***
+    *   ** THIS CLASS IS THE BOT PLAYER, IT WILL GENERATE MOVES FOR THE PIECES **
     *   A move is represented by an array of 4 elements with the format [fromX, fromY, toX, toY].
     *   The main method of the class is the 'generateMove' method wich will generate the said array.
     *   It will select random pieces that are closer to the center and generate random valid moves for them.
-    *   
-    *   PD: IT'S NOT VERY SMART YET, IT JUST MOVES PIECES!
     */
 
     constructor (name) {
         this.name = name;
     }    
 
+    
    /** 
     *   @method generateMove Selects a random piece an generates a move for it.
     *   @param {Object} board The current board.
@@ -83,12 +82,12 @@ class Player {
 
                     if (piece.getColor() == myColor) {
                         let pieceLocation = spot.getCoordinates();
-                        let distanceToCenter = this.calcDistanceToCenter(pieceLocation, board, myColor);
+                        let distanceToTarget = this.calcDistanceToTarget(pieceLocation, board, myColor);
                         
                         let newPiece = {
                             "piece": piece,
                             "coordinates": pieceLocation,
-                            "distanceToCenter": distanceToCenter
+                            "distanceToTarget": distanceToTarget
                         }
                         
                         myPieces.push(newPiece);
@@ -102,26 +101,27 @@ class Player {
 
 
    /**
-    *   @method calcDistanceToCenter Calculates the distance of a piece to the center of the board.
+    *   @method calcDistanceToObjective Calculates the distance of a piece to their target row.
     *   @param {Array} pieceLocation The piece coodinates.
-    *   @param {*} board The actual board.
-    *   @param {*} color The color of the player (black or white).
+    *   @param {Object} board The actual board.
+    *   @param {String} color The color of the player (black or white).
     */
-    calcDistanceToCenter (pieceLocation, board, color) {
+    calcDistanceToTarget (pieceLocation, board, color) {
         let distance = 0;
         let fromX = pieceLocation[0]; // X coordinate of the piece
-        let blackCenter = 7; // Row 7 is the center for black
-        let whiteCenter = 8; // Row 8 is the center for white
+        let blackTargetRow = 15; // Row 15 is the target of black pieces
+        let whiteTargetRow = 0; // Row 0 is the target of white pieces
  
         if (color == 'white') {
-            distance = Math.abs(fromX - whiteCenter);
+            distance = Math.abs(fromX - whiteTargetRow);
         }
         else if (color == 'black') {
-            distance = Math.abs(fromX - blackCenter);
+            distance = Math.abs(fromX - blackTargetRow);
         }
 
         return distance;
     }
+
 
    /**
     *   @method getPiecesCloserToCenter Returns a list of the pieces closer to the center.
@@ -129,10 +129,10 @@ class Player {
     */
     getPiecesCloserToCenter (piecesList) {
         let piecesCloserToCenter = [];
-        let closerDistance = piecesList[0].distanceToCenter;
+        let closerDistance = piecesList[0].distanceToTarget;
 
         for (let i = 0; i < piecesList.length; i++) {
-            let distance = piecesList[i].distanceToCenter;
+            let distance = piecesList[i].distanceToTarget;
             
             if (distance <= closerDistance) {
                 piecesCloserToCenter.push(piecesList[i]);
@@ -187,12 +187,10 @@ class Player {
             let randomMove = posibleMoves[Math.floor(Math.random() * posibleMoves.length)];
             let toX = randomMove[0];
             let toY = randomMove[1];
-
-            // Check if move is valid
             let targetSpot = board[toX][toY];
             
             // If the target spot is empty or has an enemy piece the move is valid.
-            if (targetSpot.isEmpty() == true || targetSpot.getPiece().getColor() != myPieceColor) {
+            if (targetSpot.isEmpty() == true || (targetSpot.isEmpty() == false && targetSpot.getPiece().getColor() != myPieceColor)) {
                 move = [fromX, fromY, toX, toY];
                 valid = true;
             }

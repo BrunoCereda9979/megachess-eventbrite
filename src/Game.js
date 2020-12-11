@@ -4,7 +4,8 @@ const Player = require('./Player');
 /**
 *   @module Game 
 *   @author Bruno Cereda
-*   THIS CLASS WILL CONTROL THE OVERALL FLOW OF THE GAME AND COMMUNICATION WITH THE GATEWAY.
+*
+*   ** THIS CLASS WILL CONTROL THE OVERALL FLOW OF THE GAME AND COMMUNICATION WITH THE GATEWAY **.
 *   Its subscribed to the Gateway class and is expecting new messages.
 *   Every new message arriving is checked for its event and data.
 *   Every event will trigger different responses wich will be sended back to the gateway. 
@@ -136,7 +137,7 @@ class Game {
    /**
     *   @method buildResponse Build the response object.        
     *   @param {String} action The action to perform.
-    *   @param {String} data The data to send along with the action.
+    *   @param {Object} data The data to send along with the action.
     *   @returns {Object} Response object.
     */
     buildResponse (action, data) {
